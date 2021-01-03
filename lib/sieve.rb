@@ -1,6 +1,12 @@
+require 'prime'
+
 class Sieve
   def initialize(limit)
     @limit = limit
+  end
+
+  def built_in_method
+    Prime::EratosthenesGenerator.new.take_while {|i| i <= @limit }
   end
 
   def primes
@@ -51,10 +57,11 @@ class Sieve
       multiplier += 1
     end
 
-    # p non_prime_numbers
     non_prime_numbers
   end
 end
 
 # Test
 puts Sieve.new(100).primes
+puts "=== Using the built-in Ruby method ==="
+puts Sieve.new(100).built_in_method
