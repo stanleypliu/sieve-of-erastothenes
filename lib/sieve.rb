@@ -1,3 +1,7 @@
+# My own implementation of the Sieve of Eratosthenes algorithm in Ruby. 
+#
+# Doesn't perform optimally compared to the inbuilt method but useful for benchmarks.
+
 require 'prime'
 
 class Sieve
@@ -6,15 +10,15 @@ class Sieve
   end
 
   def built_in_method
-    Prime::EratosthenesGenerator.new.take_while {|i| i <= @limit }
+    Prime::EratosthenesGenerator.new.take_while { |i| i <= @limit }
   end
 
   def primes
     test_range = range_to_test
-    
+
     factors.each do |factor|
       next unless test_range[factor]
-      
+
       non_prime_numbers(factor).each do |non_prime|
         test_range[non_prime] = nil
       end
@@ -33,12 +37,12 @@ class Sieve
   end
 
   # Get a list of factors up to the rounded (to nearest lowest integer) square root of @limit
-  def factors 
+  def factors
     factors = []
     x = 2
 
     until x > Math.sqrt(@limit).floor
-      factors << x 
+      factors << x
       x += 1
     end
 
@@ -62,6 +66,6 @@ class Sieve
 end
 
 # Test
-puts Sieve.new(100).primes
-puts "=== Using the built-in Ruby method ==="
-puts Sieve.new(100).built_in_method
+# puts Sieve.new(100).primes
+# puts "=== Using the built-in Ruby method ==="
+# puts Sieve.new(100).built_in_method
