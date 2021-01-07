@@ -1,4 +1,4 @@
-require_relative '../lib/sieve'
+require_relative '../lib/ruby/sieve'
 require 'benchmark/ips'
 
 new_test = Sieve.new(100)
