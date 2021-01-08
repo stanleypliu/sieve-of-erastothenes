@@ -1,3 +1,6 @@
+// Package sieve contains a basic implementation of the algorithm (closely
+// matching the algorithm in lib/ruby/sieve.rb) and is not intended to be
+// highly performant!
 package sieve
 
 import (
@@ -26,13 +29,13 @@ func EratosthenesSieve(limit int) []int {
 			break
 		}
 
-		for j := int(math.Pow(float64(primes[i]), 2)); j < limit; j += j {
+		for j := int(math.Pow(float64(primes[i]), 2)); j < limit; j += primes[i] {
 			primes[j] = 0
 		}
+
 	}
 
 	k := 0
-
 	for _, n := range primes {
 		if n != 0 {
 			primes[k] = n
