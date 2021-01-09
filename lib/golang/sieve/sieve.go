@@ -7,10 +7,9 @@ import (
 	"math"
 )
 
-// EratosthenesSieve contains the main logic (iterating through the array of
-// numbers up to the limit and checking for primality)
-func EratosthenesSieve(limit int) []int {
-	floatLimit := float64(limit)
+// setupArray initialises the range of numbers up to and including limit
+// starting from 0
+func setupArray(limit int) []int {
 	primes := make([]int, limit)
 
 	for i := 0; i < limit; i++ {
@@ -21,20 +20,11 @@ func EratosthenesSieve(limit int) []int {
 	primes[0] = 0
 	primes[1] = 0
 
-	for i := range primes {
-		if primes[i] == 0 {
-			continue
-		}
-		if math.Pow(float64(primes[i]), 2) > floatLimit {
-			break
-		}
+	return primes
+}
 
-		for j := int(math.Pow(float64(primes[i]), 2)); j < limit; j += primes[i] {
-			primes[j] = 0
-		}
-
-	}
-
+// primes removes all the 0s and compacts the slice
+func compact(primes []int) []int {
 	k := 0
 	for _, n := range primes {
 		if n != 0 {
@@ -43,7 +33,30 @@ func EratosthenesSieve(limit int) []int {
 		}
 	}
 
-	primes = primes[:k]
+	return primes[:k]
+}
 
-	return primes
+// EratosthenesSieve contains the main logic (iterating through the array of
+// numbers and checking for primality)
+func EratosthenesSieve(limit int) []int {
+	floatLimit := float64(limit)
+	primes := setupArray(limit)
+
+	for _, n := range primes {
+		squaredPrime := math.Pow(float64(n), 2)
+
+		if n == 0 {
+			continue
+		}
+
+		if squaredPrime > floatLimit {
+			break
+		}
+
+		for j := int(squaredPrime); j < limit; j += n {
+			primes[j] = 0
+		}
+	}
+
+	return compact(primes)
 }
