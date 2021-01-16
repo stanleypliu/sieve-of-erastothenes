@@ -1,15 +1,14 @@
-// Package sieve contains a basic implementation of the algorithm (closely
-// matching the algorithm in lib/ruby/sieve.rb) and is not intended to be
-// highly performant!
+// Package sieve contains a basic implementation of the Sieve of Eratosthenes
+// algorithm
 package sieve
 
 import (
 	"math"
 )
 
-// setupArray initialises the range of numbers up to and including limit
+// setupSlice initialises a slice of numbers up to and including limit
 // starting from 0
-func setupArray(limit int) []int {
+func setupSlice(limit int) []int {
 	primes := make([]int, limit)
 
 	for i := 0; i < limit; i++ {
@@ -40,7 +39,7 @@ func compact(primes []int) []int {
 // numbers and checking for primality)
 func EratosthenesSieve(limit int) []int {
 	floatLimit := float64(limit)
-	primes := setupArray(limit)
+	primes := setupSlice(limit)
 
 	for _, n := range primes {
 		squaredPrime := math.Pow(float64(n), 2)
