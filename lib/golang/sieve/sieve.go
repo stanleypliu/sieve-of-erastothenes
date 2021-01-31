@@ -9,20 +9,17 @@ import (
 // setupSlice initialises a slice of numbers up to and including limit
 // starting from 0
 func setupSlice(limit int) []int {
-	primes := make([]int, limit)
+	integers := make([]int, limit)
 
-	for i := 0; i < limit; i++ {
-		primes[i] = i
+	// Keeping first two values as 0 as they aren't taken into account
+	for i := 2; i < limit; i++ {
+		integers[i] = i
 	}
 
-	// Setting first two values to 0 as they aren't taken into account
-	primes[0] = 0
-	primes[1] = 0
-
-	return primes
+	return integers
 }
 
-// primes removes all the 0s and compacts the slice
+// compact removes all the 0s and compacts the slice
 func compact(primes []int) []int {
 	k := 0
 	for _, n := range primes {
@@ -39,23 +36,26 @@ func compact(primes []int) []int {
 // numbers and checking for primality)
 func EratosthenesSieve(limit int) []int {
 	floatLimit := float64(limit)
-	primes := setupSlice(limit)
+	sqrtLimit := math.Sqrt(floatLimit)
+	integers := setupSlice(limit)
 
-	for _, n := range primes {
-		squaredPrime := math.Pow(float64(n), 2)
-
+	for _, n := range integers {
 		if n == 0 {
 			continue
 		}
 
-		if squaredPrime > floatLimit {
+		floatN := float64(n)
+
+		if floatN > sqrtLimit {
 			break
 		}
 
-		for j := int(squaredPrime); j < limit; j += n {
-			primes[j] = 0
+		squared := math.Pow(floatN, 2)
+
+		for j := int(squared); j < limit; j += n {
+			integers[j] = 0
 		}
 	}
 
-	return compact(primes)
+	return compact(integers)
 }

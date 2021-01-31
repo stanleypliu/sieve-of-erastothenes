@@ -26,7 +26,7 @@ func TestSieve(t *testing.T) {
 	}
 }
 
-func BenchmarkSieve(b *testing.B) {
+func BenchmarkEratosthenesSieve(b *testing.B) {
 	for n := 0; n < b.N; n++ {
 		EratosthenesSieve(100)
 	}
@@ -34,7 +34,7 @@ func BenchmarkSieve(b *testing.B) {
 
 var result []int
 
-func BenchmarkFibComplete(b *testing.B) {
+func BenchmarkCompleteEratosthenesSieve(b *testing.B) {
 	var r []int
 	for n := 0; n < b.N; n++ {
 		// always record the result of Fib to prevent
