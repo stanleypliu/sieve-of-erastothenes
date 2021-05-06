@@ -21,15 +21,31 @@ Sieve (package `sieve_standard`), whilst also adapting the Ruby implementation i
 
 ## Instructions
 
-- The Ruby implementation can be run simply using `ruby spec/sieve_benchmark.rb`,
+- The Ruby implementation can be run simply using `ruby lib/ruby/sieve_benchmark.rb`,
 which, by default, outputs a comparison of the performance of the `primes` method 
 versus `Prime::EratosthenesGenerator` as per the example shown in 
-[benchmark/ips](https://github.com/evanphx/benchmark-ips#synopsis). 
+[benchmark/ips](https://github.com/evanphx/benchmark-ips#synopsis). Note that it is not 
+yet currently configurable (it will only output primes up to the fixed limit of 100).
+
 - The Golang implementation can be run via `go run lib/golang/main.go`,
 which brings up a simple UI to allow selection of the desired sieve algorithm.
 
 For tests: `cd lib/golang/sieve` or alternatively `cd lib/golang/sieve_standard`,
 and run `go test .`. 
+
+### Docker
+
+- Golang: 
+```
+cd lib/golang 
+docker build . -t sieve-golang && docker run -it sieve-golang 
+```
+
+- Ruby 
+```
+cd lib/ruby
+docker build . -t sieve-ruby && docker run sieve-ruby
+```
 
 ## TODO
 
